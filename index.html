@@ -5,146 +5,182 @@
   <title>Échelle DAN – Douleur aiguë du nouveau-né</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body{
-      font-family: Arial, sans-serif;
-      background:#f6f7f9;
-      margin:0;
-      padding:20px;
-      color:#111;
-    }
-    .page{
-      max-width:900px;
-      margin:auto;
-      background:white;
-      padding:24px;
-      border-radius:12px;
-      box-shadow:0 2px 8px rgba(0,0,0,0.08);
-    }
-    h1,h2,h3{margin-top:0}
-    h1{margin-bottom:8px}
-    .subtitle{opacity:0.8;margin-bottom:20px}
-    .badge{
-      display:inline-block;
-      padding:6px 12px;
-      border-radius:20px;
-      background:#eee;
-      margin-right:8px;
-      font-size:14px;
-    }
-    table{
-      width:100%;
-      border-collapse:collapse;
-      margin-top:20px;
-    }
-    th,td{
-      border:1px solid #ddd;
-      padding:10px;
-      vertical-align:top;
-    }
-    th{
-      background:#f0f0f0;
-      text-align:left;
-    }
-    .score{
-      margin-top:20px;
-      padding:12px;
-      background:#f8f8f8;
-      border-left:5px solid #444;
-    }
-    .ref{
-      margin-top:20px;
-      font-size:14px;
-      opacity:0.8;
+    body{font-family:Arial,sans-serif;background:#f6f7f9;margin:0;padding:20px;color:#111}
+    .page{max-width:950px;margin:auto;background:#fff;padding:24px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+    h1{margin:0 0 6px 0}
+    .subtitle{opacity:.8;margin:0 0 18px 0}
+    .badge{display:inline-block;padding:6px 12px;border-radius:999px;background:#eee;margin-right:8px;font-size:14px}
+    .grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:16px}
+    .card{border:1px solid #e6e6e6;border-radius:12px;padding:14px;background:#fff}
+    .card h3{margin:0 0 10px 0}
+    .desc{font-size:14px;opacity:.85;line-height:1.35}
+    .opts{margin-top:10px;display:grid;gap:8px}
+    label.opt{display:flex;gap:10px;align-items:flex-start;border:1px solid #eee;border-radius:10px;padding:10px;background:#fafafa;cursor:pointer}
+    label.opt input{margin-top:3px}
+    .scoreRow{display:flex;gap:12px;flex-wrap:wrap;align-items:stretch;margin-top:16px}
+    .scoreBox{flex:1;min-width:220px;border:1px solid #e6e6e6;border-radius:12px;padding:14px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+    .scoreBox .label{font-size:13px;opacity:.75;margin-bottom:6px}
+    .scoreBox .value{font-size:28px;font-weight:800}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    button{padding:10px 12px;border-radius:10px;border:1px solid #ddd;background:#fff;cursor:pointer}
+    button:hover{filter:brightness(.98)}
+    .hint{font-size:14px;opacity:.8;margin-top:6px}
+    table{width:100%;border-collapse:collapse;margin-top:14px}
+    th,td{border:1px solid #ddd;padding:10px;vertical-align:top}
+    th{background:#f0f0f0;text-align:left}
+    @media print{
+      body{background:#fff;padding:0}
+      .page{box-shadow:none;border-radius:0}
+      .actions{display:none}
     }
   </style>
 </head>
 
 <body>
   <div class="page">
-
-    <span class="badge">Douleur aiguë</span>
-    <span class="badge">Naissance – 3 mois</span>
+    <div>
+      <span class="badge">Douleur aiguë</span>
+      <span class="badge">Naissance – 3 mois</span>
+    </div>
 
     <h1>ÉCHELLE DAN</h1>
-    <div class="subtitle">
-      Douleur Aiguë du Nouveau-né
-    </div>
+    <p class="subtitle">Douleur Aiguë du Nouveau-né</p>
 
-    <p>
-      Échelle d’évaluation de la douleur aiguë du nouveau-né,
-      élaborée et validée pour mesurer la douleur liée à un soin
-      chez le nouveau-né à terme ou prématuré,
-      utilisable jusqu’à l’âge de 3 mois.
+    <p class="desc">
+      Échelle d’évaluation de la douleur aiguë du nouveau-né, élaborée et validée pour mesurer la douleur d’un soin
+      chez le nouveau-né à terme ou prématuré, utilisable jusqu’à 3 mois. <strong>Score total : 0 à 10.</strong>
     </p>
 
-    <p><strong>Score total : de 0 à 10</strong></p>
+    <div class="scoreRow">
+      <div class="scoreBox">
+        <div class="label">Score DAN (0–10)</div>
+        <div class="value" id="score">—</div>
+        <div class="hint" id="hint">Coche une réponse dans chaque item.</div>
+      </div>
+      <div class="scoreBox">
+        <div class="label">Détail</div>
+        <div class="hint">
+          Réponses faciales (0–4) + Mouvements des membres (0–3) + Expression vocale (0–3)
+        </div>
+        <div class="hint" id="detail">Facial: — · Membres: — · Vocale: —</div>
+      </div>
+    </div>
 
-    <h2>Temps d’évaluation</h2>
-    <ul>
-      <li>Avant le soin</li>
-      <li>Pendant le soin</li>
-      <li>Après le soin</li>
-    </ul>
+    <div class="actions">
+      <button type="button" id="resetBtn">Réinitialiser</button>
+      <button type="button" id="printBtn">Imprimer</button>
+    </div>
 
-    <h2>Items de l’échelle DAN</h2>
+    <div class="grid">
 
-    <table>
-      <tr>
-        <th>Item</th>
-        <th>Description et cotation</th>
-      </tr>
-
-      <tr>
-        <td><strong>Réponses faciales<br>(0 à 4)</strong></td>
-        <td>
+      <div class="card">
+        <h3>1) Réponses faciales (0 à 4)</h3>
+        <div class="desc">
           0 : calme<br>
-          1 : pleurniche avec alternance fermeture / ouverture douce des yeux<br><br>
-          Signes : contraction des paupières, froncement des sourcils,
-          accentuation des sillons naso-labiaux<br>
-          2 : légers, intermittents, avec retour au calme<br>
-          3 : modérés<br>
-          4 : très marqués, permanents
-        </td>
-      </tr>
+          1 : pleurniche avec alternance de fermeture et d’ouverture douce des yeux<br><br>
+          Déterminer l’intensité d’un ou plusieurs signes : contraction des paupières, froncement des sourcils,
+          accentuation des sillons naso-labiaux :
+        </div>
 
-      <tr>
-        <td><strong>Mouvements des membres<br>(0 à 3)</strong></td>
-        <td>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="facial" value="0"> <strong>0</strong> — calme</label>
+          <label class="opt"><input type="radio" name="facial" value="1"> <strong>1</strong> — pleurniche, alternance fermeture/ouverture douce des yeux</label>
+          <label class="opt"><input type="radio" name="facial" value="2"> <strong>2</strong> — signes légers, intermittents, avec retour au calme</label>
+          <label class="opt"><input type="radio" name="facial" value="3"> <strong>3</strong> — signes modérés</label>
+          <label class="opt"><input type="radio" name="facial" value="4"> <strong>4</strong> — signes très marqués, permanents</label>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>2) Mouvements des membres (0 à 3)</h3>
+        <div class="desc">
           0 : calmes ou mouvements doux<br><br>
-          Signes : pédalage, écartement des orteils,
-          membres inférieurs raides et surélevés,
-          agitation des bras, réaction de retrait<br>
-          1 : légers, intermittents, avec retour au calme<br>
-          2 : modérés<br>
-          3 : très marqués, permanents
-        </td>
-      </tr>
+          Déterminer l’intensité d’un ou plusieurs signes : pédalage, écartement des orteils, membres inférieurs raides et surélevés,
+          agitation des bras, réaction de retrait :
+        </div>
 
-      <tr>
-        <td><strong>Expression vocale<br>(0 à 3)</strong></td>
-        <td>
-          0 : absence de plainte<br>
-          1 : gémit brièvement<br>
-          (enfant intubé : semble inquiet)<br>
-          2 : cris intermittents<br>
-          (enfant intubé : mimique de cris intermittents)<br>
-          3 : cris de longue durée, hurlement constant<br>
-          (enfant intubé : mimique de cris constants)
-        </td>
-      </tr>
-    </table>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="membres" value="0"> <strong>0</strong> — calmes ou mouvements doux</label>
+          <label class="opt"><input type="radio" name="membres" value="1"> <strong>1</strong> — signes légers, intermittents, avec retour au calme</label>
+          <label class="opt"><input type="radio" name="membres" value="2"> <strong>2</strong> — signes modérés</label>
+          <label class="opt"><input type="radio" name="membres" value="3"> <strong>3</strong> — signes très marqués, permanents</label>
+        </div>
+      </div>
 
-    <div class="score">
-      <strong>Calcul du score :</strong><br>
-      Score DAN = somme des 3 items<br>
-      Score minimal : 0 – Score maximal : 10
+      <div class="card">
+        <h3>3) Expression vocale de la douleur (0 à 3)</h3>
+        <div class="desc">
+          (Pour l’enfant intubé : se baser sur la mimique)
+        </div>
+
+        <div class="opts">
+          <label class="opt"><input type="radio" name="vocale" value="0"> <strong>0</strong> — absence de plainte</label>
+          <label class="opt"><input type="radio" name="vocale" value="1"> <strong>1</strong> — gémit brièvement (intubé : semble inquiet)</label>
+          <label class="opt"><input type="radio" name="vocale" value="2"> <strong>2</strong> — cris intermittents (intubé : mimique de cris intermittents)</label>
+          <label class="opt"><input type="radio" name="vocale" value="3"> <strong>3</strong> — cris longue durée / hurlement constant (intubé : mimique de cris constants)</label>
+        </div>
+      </div>
+
     </div>
 
-    <div class="ref">
-      Carbajal R. et al. DAN : une échelle comportementale d’évaluation
-      de la douleur aiguë du nouveau-né. Arch Pediatr, 1997.
+    <div class="card" style="margin-top:14px">
+      <h3>Calcul</h3>
+      <div class="desc">
+        <strong>Score DAN = somme des 3 items</strong> (min 0 – max 10).<br>
+        Évaluation possible avant / pendant / après le soin (tu peux refaire le score et noter séparément si besoin).
+      </div>
     </div>
 
+    <div class="card" style="margin-top:14px">
+      <h3>Références</h3>
+      <div class="desc">
+        Carbajal R., Paupe A., Hoenn E., Lenclen R., Olivier-Martin M. DAN : une échelle comportementale d’évaluation de la douleur aiguë du nouveau-né. Arch Pediatr. 1997.<br>
+        Carbajal R. et al. Analgesic effect of breast feeding in term neonates: randomised controlled trial. BMJ. 2003.
+      </div>
+    </div>
   </div>
+
+  <script>
+    function getVal(name){
+      const el = document.querySelector(`input[name="${name}"]:checked`);
+      return el ? parseInt(el.value, 10) : null;
+    }
+
+    function update(){
+      const f = getVal("facial");
+      const m = getVal("membres");
+      const v = getVal("vocale");
+
+      const detail = document.getElementById("detail");
+      detail.textContent = `Facial: ${f ?? "—"} · Membres: ${m ?? "—"} · Vocale: ${v ?? "—"}`;
+
+      const scoreEl = document.getElementById("score");
+      const hintEl = document.getElementById("hint");
+
+      if (f === null || m === null || v === null){
+        scoreEl.textContent = "—";
+        hintEl.textContent = "Coche une réponse dans chaque item.";
+        return;
+      }
+
+      const total = f + m + v;
+      scoreEl.textContent = String(total);
+      hintEl.textContent = "Score calculé automatiquement.";
+    }
+
+    document.addEventListener("change", (e) => {
+      if (e.target && e.target.matches('input[type="radio"]')) update();
+    });
+
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      document.querySelectorAll('input[type="radio"]:checked').forEach(r => r.checked = false);
+      update();
+      window.scrollTo({top:0,behavior:"smooth"});
+    });
+
+    document.getElementById("printBtn").addEventListener("click", () => window.print());
+
+    update();
+  </script>
 </body>
 </html>
